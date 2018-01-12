@@ -1,0 +1,43 @@
+@import 'vars'
+@import 'mixins'
+@import 'launch'
+
+
+body
+    background: white
+    margin: 0
+    padding: 0
+
+    #app
+        margin: 0
+        padding: 0
+
+.su-primary-button
+    font-family: 'Cantarell'
+    color: $secondary-teal
+    background-color: transparent
+    border: 1px solid $secondary-teal
+    padding: 20px 40px
+    border-radius: 40px
+    transition: 0.2s
+    outline: none
+    &:hover
+        background-color: $secondary-teal
+        cursor: pointer
+        color: white
+
+.su-circle-button
+    color: white
+    background-color: $secondary-teal
+    border-radius: 50%
+    border: none
+    width: 40px
+    height: 40px
+    transition: 0.2s
+    outline: none
+    &:hover
+        background-color: $dark-teal
+        cursor: pointer
+
+.su-disabled
+    pointer-events: none
