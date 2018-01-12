@@ -3,6 +3,8 @@ const dialog = require('electron').remote.dialog;
 const Store = require('electron-store');
 const store = new Store();
 
+const ipcRenderer = require('electron').ipcRenderer;
+
 window.$ = window.jQuery = require('jquery');
 
 
@@ -29,8 +31,7 @@ export default class FirstLaunch extends Component {
     }
 
     gotoCards() {
-        console.log(this.state.libraryPathSet);
-        console.log("oh... path is set...?", store.get('libraryPath'));
+        ipcRenderer.send('invokeRefresh');
     }
 
     render() {

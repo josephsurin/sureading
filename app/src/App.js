@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 
 const electron = require('electron');
-const ipcRenderer = electron.ipcRenderer;
+const ipc = electron.ipcRenderer;
 const dialog = electron.remote.dialog;
 
 const Store = require('electron-store');
@@ -20,7 +20,6 @@ let content;
 if(!store.get("libraryPath")) {
     content = <FirstLaunch/>
 } else {
-    console.log(store.get("libraryPath"));
     content = <CardsIndex/>
 }
 
