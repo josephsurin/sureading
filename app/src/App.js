@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, NavLink, Link, HashRouter } from 'react-router-dom';
 
 const electron = require('electron');
 const ipc = electron.ipcRenderer;
@@ -23,12 +23,12 @@ if(!store.get("libraryPath")) {
     content = <FirstLaunch/>
 } else {
     content = (
-        <Router>
+        <HashRouter>
             <div>
-                <Route exact path="" component={CardsIndex}/>
-                <Route path="/card" component={VolsIndex}/>
+                <Route exact path="/" component={CardsIndex}/>
+                <Route exact path="/card/:title" component={VolsIndex}/>
             </div>
-        </Router>
+        </HashRouter>
     );
 }
 

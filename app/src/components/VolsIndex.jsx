@@ -4,7 +4,7 @@ export default class VolsIndex extends Component {
   render() {
     return (
       <div>
-        
+        {this.props.match.params.title}
       </div>
     )
   }

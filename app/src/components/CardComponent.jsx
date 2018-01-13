@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { NavLink } from 'react-router-dom'
 
 let bgStyle;
 
@@ -19,10 +20,12 @@ export default class CardComponent extends Component {
 
   render() {
     return (
-      <div className="card-container">
-        <div className="card-image" style={bgStyle}></div>
-        <div className="card-title">{this.props.title}</div>
-      </div>
+        <NavLink to={`/card/${this.props.title}`}>
+            <div className="card-container">
+                <div className="card-image" style={bgStyle}></div>
+                <div className="card-title">{this.props.title}</div>
+            </div>
+        </NavLink>
     )
   }
 }
