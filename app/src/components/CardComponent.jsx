@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 let bgStyle;
+let linkto;
 
 export default class CardComponent extends Component {
     constructor(props) {
@@ -9,23 +10,28 @@ export default class CardComponent extends Component {
         if(this.props.cover) {
             var fixedCover = this.props.cover.replace(/\\/g, "/");
             bgStyle = {
-                backgroundImage: "url('"+fixedCover+"')"
+                backgroundImage: `url("${fixedCover}")`
             }
         } else {
             bgStyle = {
                 background: "grey"
             }
         }
+        if(this.props.type=="card") {
+            linkto=`/card/${this.props.title}`;
+        } else {
+            linkto=`${location.hash.substring(1)}/vol/${this.props.title}`;
+        }
     }
 
   render() {
     return (
-        <NavLink to={`/card/${this.props.title}`}>
+        <Link to={linkto}>
             <div className="card-container">
                 <div className="card-image" style={bgStyle}></div>
                 <div className="card-title">{this.props.title}</div>
             </div>
-        </NavLink>
+        </Link>
     )
   }
 }

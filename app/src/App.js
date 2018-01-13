@@ -16,6 +16,7 @@ require("./styles/main.sass");
 import FirstLaunch from './components/FirstLaunch.jsx';
 import CardsIndex from './components/CardsIndex.jsx';
 import VolsIndex from './components/VolsIndex.jsx';
+import ContentPage from './components/ContentPage.jsx';
 
 let content;
 
@@ -27,6 +28,7 @@ if(!store.get("libraryPath")) {
             <div>
                 <Route exact path="/" component={CardsIndex}/>
                 <Route exact path="/card/:title" component={VolsIndex}/>
+                <Route exact path="/card/:title/vol/:volume" component={ContentPage}/>
             </div>
         </HashRouter>
     );

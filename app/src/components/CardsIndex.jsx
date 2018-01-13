@@ -13,24 +13,14 @@ export default class CardsIndex extends Component {
         super(props);
         var libraryPath = store.get("libraryPath");
         this.state = {
-            cardComponentsArray: createCardsFromDir(libraryPath)
+            cardComponentsArray: createCardsFromDir(libraryPath, "card")
         }
-        $(window).resize(() => {
-            this.setState({
-                cardComponentsArray: addSpacerCards(this.state.cardComponentsArray)
-            })
-        });
     }
 
-    componentWillMount() {
-        this.setState({
-            cardComponentsArray: addSpacerCards(this.state.cardComponentsArray)
-        });
-    }
 
     render() {
         return (
-            <div className="wrapper-cards-index">
+            <div className="wrapper-cards">
                 {this.state.cardComponentsArray}
             </div>
         );
