@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 const fs = require('fs');
 const path = require('path');
 
-const imgRegTest = /(\.jpg|\.png|\.jpeg|\.tiff|\.bmp)/i;
+const imgRegTest = /(\.jpg|\.png|\.jpeg|\.tiff|\.bmp|\.tif)/i;
 
 import CardComponent from './components/CardComponent.jsx'
 

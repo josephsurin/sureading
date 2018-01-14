@@ -2,51 +2,75 @@ html, body, #app
     background-color: $white
 
 .page-container
-    +grid-display(35% 55% 10%, 80px auto auto 80px 70px)
-    font-family: 'Exo'
-    color: $black
-    font-size: 25px
+    +grid-display(35% 55% 10%, 100%)
+    width: 100%
+    height: 100%
 
-    .back-button
+    .left-page-container
+        +grid-display(100%, 80px minmax(auto,100px) minmax(auto,80px) 80px 70px auto)
+        font-family: 'Exo'
         color: $black
-        margin: 40px 0 40px 40px
-        &:hover
-            color: $secondary-teal
-            font-weight: bold
+        font-size: 25px
 
-    .page-title
-        +grid(1, 2)
-        font-size: 40px
-        margin: 40px 0 20px 40px
-        font-family: 'Lobster'
+        .back-button
+            color: $black
+            margin: 40px 0 40px 40px
+            &:hover
+                color: $secondary-teal
+                font-weight: bold
+                cursor: pointer
 
-    .volume-title
-        +grid(1, 3)
-        margin: 0 0 40px 40px 
-    
-    .page-counter
-        +grid(1, 4)
-        justify-self: center
-        font-size: 30px
-    
-    .progress-bar-container
-        +grid(1, 5)
-        width: 90%
-        border-radius: 25px
-        height: 10px
-        background-color: grey
-        justify-self: center
+        .page-title
+            +grid(1, 2)
+            font-size: 40px
+            margin: 40px 0 20px 40px
+            font-family: 'Lobster'
 
-        .progress-bar
-            height: 100%
+        .volume-title
+            +grid(1, 3)
+            margin: 0 0 40px 40px 
+        
+        .page-counter
+            +grid(1, 4)
+            justify-self: center
+            font-size: 30px
+        
+            .page-counter-pagenum
+                outline: none
+                &:focus
+                    border-bottom: 1px solid $secondary-teal
+                &:hover
+                    cursor: text
+
+        .progress-bar-container
+            +grid(1, 5)
+            width: 90%
             border-radius: 25px
-            background: $secondary-teal
+            height: 10px
+            background-color: grey
+            justify-self: center
+            &:active
+                cursor: move
 
-    .home-button
-        position: absolute
-        bottom: 40px
-        left: 40px
+            .progress-bar
+                height: 100%
+                border-radius: 25px
+                background: $secondary-teal
 
+        .home-button-container
+            margin: 40px 0 40px 40px
+            position: relative
+            +grid(1, 6)
+
+            .home-button
+                position: absolute
+                bottom: 0
+                color: $black
+                &:hover
+                    color: $secondary-teal
+                    font-weight: bold
+                    cursor: pointer
+    
     .page-image-container
         +grid(2, 1)
         justify-self: end

@@ -34,6 +34,7 @@ export default class ContentPage extends Component {
                     break;
                 case 39: this.updatePageState(1);
                     break;
+                case 13: e.preventDefault(); break;
             }
         });
 
@@ -44,11 +45,10 @@ export default class ContentPage extends Component {
             curX = 0,
             progressBarWidth = $(".progress-bar-container").width();
         $(".progress-bar-container").click((e) => {
-            var newpn = Math.floor(pageCount*e.offsetX / progressBarWidth);
+            var newpn = Math.ceil(pageCount*e.offsetX / progressBarWidth);
             console.log(newpn);
             this.setState({
-                pageNumber: newpn,
-                pageFilePath: path.join(currDir, pagesNamesArray[newpn]).replace(/\\/g, "/")
+                pageNumber: newpn
             });
             curDown = false;
         });
@@ -58,44 +58,71 @@ export default class ContentPage extends Component {
         });
         $(".progress-bar-container").mousemove((e) => {
             if(curDown) {
-                var newpn = Math.floor(pageCount*e.offsetX / progressBarWidth);
+                var newpn = Math.ceil(pageCount*e.offsetX / progressBarWidth);
                 this.setState({
-                    pageNumber: newpn,
-                    pageFilePath: path.join(currDir, pagesNamesArray[newpn]).replace(/\\/g, "/")
+                    pageNumber: newpn
                 });
             }
         });
         $(window).mouseup(() => {
             curDown = false;
         });
+
+        $(".page-counter-pagenum").keydown((e) => {
+            if($(".page-counter-pagenum").text().length>=pageCount.toString().length+1 && e.keyCode != 8 && e.keyCode!=46 && e.keyCode!=37 && e.keyCode!=39 && e.keyCode!=13) {
+                e.preventDefault();
+                return false;
+            } else if(e.keyCode==13) {
+                this.checkAndGotoPage();
+            }
+        });
+    }
+
+    checkAndGotoPage() {
+        var pcpn = $(".page-counter-pagenum");
+        var newInput = pcpn.text();
+        if(newInput > 0 && newInput <= pageCount) {
+            pcpn.css("borderColor", "#96baba");
+            this.setState({
+                pageNumber: newInput
+            });
+            pcpn.blur();
+        } else {
+            pcpn.css("borderColor", "red");
+        }
     }
 
     updatePageState(pageChange) {
-        if((this.state.pageNumber == 1 && pageChange == -1) || (this.state.pageNumber == pagesNamesArray.length-1 && pageChange == 1)) {
-            console.log("first/last page");
-        } else {
-            this.setState({
-                pageNumber: this.state.pageNumber+pageChange,
-                pageFilePath: path.join(currDir, pagesNamesArray[this.state.pageNumber+pageChange]).replace(/\\/g, "/")
-            });
+        if(!$(".page-counter-pagenum").is(":focus")) {
+            if((this.state.pageNumber == 1 && pageChange == -1) || (this.state.pageNumber == pagesNamesArray.length-1 && pageChange == 1)) {
+                console.log("first/last page");
+            } else {
+                this.setState({
+                    pageNumber: this.state.pageNumber+pageChange
+                });
+            }
         }
     }
 
     render() {
         return (
-        <div className="page-container">
-            <Link to={`/card/${title}`} className="back-button no-select">{'<'}  Back</Link>
-            <div className="page-title no-select">{title}</div>
-            <div className="volume-title no-select">{volume}</div>
-            <div className="page-counter no-select">{this.state.pageNumber}/{pageCount}</div>
-            <div className="progress-bar-container">
-                <div className="progress-bar" style={{ width: `${100*this.state.pageNumber / pageCount}%`}}></div>
+            <div className="page-container">
+                <div className="left-page-container">
+                    <Link to={`/card/${title}`} className="back-button no-select">{'<'}  Back</Link>
+                    <div className="page-title no-select">{title}</div>
+                    <div className="volume-title no-select">{volume}</div>
+                    <div className="page-counter no-select"><span contentEditable="true" className="page-counter-pagenum">{this.state.pageNumber}</span>/{pageCount}</div>
+                    <div className="progress-bar-container">
+                        <div className="progress-bar" style={{ width: `${100*this.state.pageNumber / pageCount}%`}}></div>
+                    </div>
+                    <div className="home-button-container">
+                        <Link to="/" className='home-button no-select'>Home</Link>
+                    </div>
+                </div>
+                <div className="page-image-container no-select">
+                    <img className="page-image" alt="error/unsupported file format" src={path.join(currDir, pagesNamesArray[this.state.pageNumber]).replace(/\\/g, "/")}/>
+                </div>
             </div>
-            <div className="home-button no-select">Home</div>
-            <div className="page-image-container no-select">
-                <img className="page-image" src={this.state.pageFilePath}/>
-            </div>
-        </div>
         )
     }
 }
