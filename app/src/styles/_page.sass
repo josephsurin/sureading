@@ -1,9 +1,11 @@
-html, body, #app
-    background-color: $white
+html, body, #app, .router-div
+    height: 100%
 
 .page-container
     +grid-display(35% auto 100px 10px, minmax(100%, auto))
     grid-gap: 20px
+    height: 100%
+    background-color: $white
 
     .left-page-container
         +grid-display(100%, 80px minmax(auto,80px) minmax(auto,80px) 80px 70px auto)
@@ -44,7 +46,6 @@ html, body, #app
         .progress-bar-container
             +grid(1, 5)
             width: 90%
-            border-radius: 25px
             height: 10px
             background-color: grey
             margin-left: 40px
@@ -53,7 +54,6 @@ html, body, #app
 
             .progress-bar
                 height: 100%
-                border-radius: 25px
                 background: $secondary-teal
 
         .home-button-container
@@ -90,6 +90,7 @@ html, body, #app
         +grid(3, 1)
         +grid-display(50% 50%, 80px 40px auto 40px)
         justify-items: center
+        margin-bottom: 40px
 
         .control-button
             color: $secondary-teal
@@ -111,3 +112,24 @@ html, body, #app
 
         .go-next
             +grid(2, 4)
+
+@media (max-width: 1000px)
+        &:not(body):not(html):not(#app):not(.router-div):not(.page-container):not(.page-image-container):not(.page-image)
+            display: none
+
+        .page-image-container
+            width: 100vw !important
+            height: auto !important
+            position: absolute
+
+            .page-image
+                display: block
+                margin-left: auto
+                margin-right: auto
+                width: 100% !important
+                height: auto !important
+                object-fit: contain
+                margin-top: 2.5vh
+                box-shadow: 1px 1px 15px 1px rgba(0,0,0,0.4)
+                &:hover
+                    cursor: pointer

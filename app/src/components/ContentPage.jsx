@@ -63,6 +63,7 @@ export default class ContentPage extends Component {
         $(".progress-bar-container").click((e) => {
             var newpn = Math.ceil(pageCount*e.offsetX / progressBarWidth);
             newpn === 0 ? newpn=1 : newpn=newpn;
+            newpn > pageCount ? newpn=pageCount : newpn=newpn;
             this.setState({
                 pageNumber: newpn
             });
@@ -76,6 +77,7 @@ export default class ContentPage extends Component {
             if(curDown) {
                 var newpn = Math.ceil(pageCount*e.offsetX / progressBarWidth);
                 newpn === 0 ? newpn=1 : newpn=newpn;
+                newpn > pageCount ? newpn=pageCount : newpn=newpn;
                 this.setState({
                     pageNumber: newpn
                 });
@@ -140,7 +142,7 @@ export default class ContentPage extends Component {
 
     checkAndGotoPage() {
         var pcpn = $(".page-counter-pagenum");
-        var newInput = pcpn.text();
+        var newInput = parseInt(pcpn.text());
         if(newInput > 0 && newInput <= pageCount) {
             pcpn.css("borderColor", "#96baba");
             this.setState({
