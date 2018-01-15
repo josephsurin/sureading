@@ -13,6 +13,7 @@ let libraryPath = store.get("libraryPath");
 let title;
 let volume;
 let pageCount;
+let zoomedIn = false;
 
 export default class ContentPage extends Component {
 
@@ -30,14 +31,28 @@ export default class ContentPage extends Component {
 
         $(window).keydown((e) => {
             switch(e.keyCode) {
-                case 37: this.updatePageState(-1)
+                case 37: 
+                    e.preventDefault();
+                    this.updatePageState(-1);
                     break;
-                case 39: this.updatePageState(1);
+                case 39: 
+                    e.preventDefault();
+                    this.updatePageState(1);
                     break;
                 case 13: e.preventDefault(); break;
             }
         });
 
+    }
+
+    componentWillMount() {
+        zoomedIn = false;
+        var bookmarkName = `bookmark/${title}/${volume}`
+        if(store.get(bookmarkName)) {
+            this.setState({
+                pageNumber: store.get(bookmarkName)
+            });
+        }
     }
 
     componentDidMount() {
@@ -76,7 +91,26 @@ export default class ContentPage extends Component {
                 this.checkAndGotoPage();
             }
         });
+
+        $(".page-image").click(function() {
+            $(this).css("height" , zoomedIn ? "94.5vh" : "175vh");
+            zoomedIn = !zoomedIn;
+        });
+
+        $(".go-next").click(() => {
+            this.updatePageState(1);
+        });
+
+        $(".go-prev").click(() => {
+            this.updatePageState(-1);
+        });
+
+        $(".bookmark").click(() => {
+            var bookmarkName = `bookmark/${title}/${volume}`
+            store.set(bookmarkName, this.state.pageNumber);
+        });
     }
+    
 
     checkAndGotoPage() {
         var pcpn = $(".page-counter-pagenum");
@@ -93,6 +127,7 @@ export default class ContentPage extends Component {
     }
 
     updatePageState(pageChange) {
+        $(window).scrollTop(0);
         if(!$(".page-counter-pagenum").is(":focus")) {
             if((this.state.pageNumber == 1 && pageChange == -1) || (this.state.pageNumber == pagesNamesArray.length-1 && pageChange == 1)) {
                 console.log("first/last page");
@@ -121,6 +156,13 @@ export default class ContentPage extends Component {
                 </div>
                 <div className="page-image-container no-select">
                     <img className="page-image" alt="error/unsupported file format" src={path.join(currDir, pagesNamesArray[this.state.pageNumber]).replace(/\\/g, "/")}/>
+                </div>
+                <div className="right-page-container">
+                
+                    <i className="fa fa-bookmark bookmark control-button"></i>
+                    <i className="fa fa-arrow-left go-prev control-button"></i>
+                    <i className="fa fa-arrow-right go-next control-button"></i>   
+
                 </div>
             </div>
         )
