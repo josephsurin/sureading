@@ -14,6 +14,7 @@ let title;
 let volume;
 let pageCount;
 let zoomedIn = false;
+let bookmarkName;
 
 export default class ContentPage extends Component {
 
@@ -21,6 +22,7 @@ export default class ContentPage extends Component {
         super(props);
         title = this.props.match.params.title;
         volume = this.props.match.params.volume;
+        bookmarkName = `bookmark/${title}/${volume}`
         currDir = path.join(libraryPath, title, volume);
         pagesNamesArray = readImgFiles(currDir);
         pageCount = pagesNamesArray.length-1;
@@ -47,7 +49,6 @@ export default class ContentPage extends Component {
 
     componentWillMount() {
         zoomedIn = false;
-        var bookmarkName = `bookmark/${title}/${volume}`
         if(store.get(bookmarkName)) {
             this.setState({
                 pageNumber: store.get(bookmarkName)
@@ -61,7 +62,7 @@ export default class ContentPage extends Component {
             progressBarWidth = $(".progress-bar-container").width();
         $(".progress-bar-container").click((e) => {
             var newpn = Math.ceil(pageCount*e.offsetX / progressBarWidth);
-            console.log(newpn);
+            newpn === 0 ? newpn=1 : newpn=newpn;
             this.setState({
                 pageNumber: newpn
             });
@@ -74,6 +75,7 @@ export default class ContentPage extends Component {
         $(".progress-bar-container").mousemove((e) => {
             if(curDown) {
                 var newpn = Math.ceil(pageCount*e.offsetX / progressBarWidth);
+                newpn === 0 ? newpn=1 : newpn=newpn;
                 this.setState({
                     pageNumber: newpn
                 });
@@ -106,11 +108,35 @@ export default class ContentPage extends Component {
         });
 
         $(".bookmark").click(() => {
-            var bookmarkName = `bookmark/${title}/${volume}`
             store.set(bookmarkName, this.state.pageNumber);
+            $(".bookmark").addClass("su-disabled");
+            setTimeout(()=>{$(".bookmark").removeClass("su-disabled")}, 1200);
+            $(".bookmark").fadeOut(300, function() {
+                $(this).removeClass("fa-bookmark").addClass("fa-check");
+            }).fadeIn(300);
+
+            
+            $(".bookmark").fadeOut(300, function() {
+                $(this).removeClass("fa-check").addClass("fa-bookmark");
+            }).fadeIn(300);
         });
-    }
+
+        $(".del-bookmark").click(() => {
+            if(store.get(bookmarkName)) {
+                store.delete(bookmarkName);
+                $(".del-bookmark").fadeOut(300, function() {
+                    $(this).removeClass("fa-trash").addClass("fa-check");
+                }).fadeIn(300);
     
+                
+                $(".del-bookmark").fadeOut(300, function() {
+                    $(this).removeClass("fa-check").addClass("fa-trash");
+                }).fadeIn(300);
+            }
+
+        });
+
+    }
 
     checkAndGotoPage() {
         var pcpn = $(".page-counter-pagenum");
@@ -127,7 +153,6 @@ export default class ContentPage extends Component {
     }
 
     updatePageState(pageChange) {
-        $(window).scrollTop(0);
         if(!$(".page-counter-pagenum").is(":focus")) {
             if((this.state.pageNumber == 1 && pageChange == -1) || (this.state.pageNumber == pagesNamesArray.length-1 && pageChange == 1)) {
                 console.log("first/last page");
@@ -137,6 +162,7 @@ export default class ContentPage extends Component {
                 });
             }
         }
+        $(window).scrollTop(0);
     }
 
     render() {
@@ -159,7 +185,8 @@ export default class ContentPage extends Component {
                 </div>
                 <div className="right-page-container">
                 
-                    <i className="fa fa-bookmark bookmark control-button"></i>
+                    <i className="fa fa-bookmark bookmark control-button" title="Bookmark this page!"></i>                
+                    <i className="fa fa-trash del-bookmark control-button" title="Remove Bookmark"></i>
                     <i className="fa fa-arrow-left go-prev control-button"></i>
                     <i className="fa fa-arrow-right go-next control-button"></i>   
 
