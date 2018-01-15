@@ -25,7 +25,7 @@ if(!store.get("libraryPath")) {
 } else {
     content = (
         <HashRouter>
-            <div>
+            <div className="router-div">
                 <Route exact path="/" component={CardsIndex}/>
                 <Route exact path="/card/:title" component={VolsIndex}/>
                 <Route exact path="/card/:title/vol/:volume" component={ContentPage}/>
