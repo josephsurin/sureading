@@ -20,10 +20,10 @@
 
     .su-sidebar
         overflow: hidden
-        width: 5px
+        width: 15px
         height: 100%
         transition: 0.4s
-        +grid-display(100%, 450px repeat(auto-fill, minmax(70px, auto)))
+        +grid-display(100%, 28px 450px repeat(auto-fill, minmax(70px, auto)))
         &:hover
             width: 280px
             visibility: visible
@@ -31,6 +31,13 @@
                 visibility: visible !important
             & > .su-sidebar
                 width: 280px
+
+        .su-control-buttons
+            -webkit-app-region: drag
+            background-color: red
+            &:hover
+                width: 280px
+                background-color: yellow
 
         .continue-reading
             +grid-display(100%, 50px 240px auto 40px)
@@ -82,7 +89,7 @@
             +sidebar-link-active($secondary-purple)
 
         .sidebar-link-settings
-            grid-row: 6
+            grid-row: 7
             +sidebar-link($primary-orange)
 
         .sidebar-link-settings-active
