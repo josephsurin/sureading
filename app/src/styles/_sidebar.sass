@@ -1,52 +1,89 @@
 .su-sidebar > *
     transition: 0.4s
     visibility: hidden
-
-.su-sidebar
+        
+.su-sidebar-wrapper
     height: 100%
-    width: 1px
+    width: 0
     position: fixed
     z-index: 100
     background-color: white
     border-right: 5px solid $secondary-teal
     transition: 0.4s
-    +grid-display(100%, 350px repeat(auto-fill, minmax(100px, auto)))
     &:hover
         width: 280px
         visibility: visible
         & > *
             visibility: visible !important
+        & > .su-sidebar
+            width: 280px
 
-    .continue-reading
-        +grid-display(100%, 50px 240px auto 40px)
-        width: 280px
-        font-family: 'Exo'
-        font-size: 20px
-        color: white
+    .su-sidebar
+        overflow: hidden
+        width: 5px
+        height: 100%
+        transition: 0.4s
+        +grid-display(100%, 450px repeat(auto-fill, minmax(70px, auto)))
         &:hover
-            cursor: pointer
-            & > .continue-reading-img
-                filter: brightness(1)
-            & > .lastread-title, .lastread-vol, .lastread-page
-                visibility: hidden
+            width: 280px
+            visibility: visible
+            & > *
+                visibility: visible !important
+            & > .su-sidebar
+                width: 280px
 
-        .continue-reading-img
-            transition: 0.7s
-            width: 100%        
-            height: 450px
-            background-size: cover
-            position: absolute
-            z-index: -10
-            filter: brightness(0.6)
-        
-        .lastread-title
-            margin-top: 20px
-            justify-self: center
-        
-        .lastread-vol
-            margin-left: 10px
-            +grid(1, 4)
+        .continue-reading
+            +grid-display(100%, 50px 240px auto 40px)
+            width: 280px
+            font-family: 'Exo'
+            font-size: 20px
+            color: white
+            &:hover
+                cursor: pointer
+                & > .continue-reading-img
+                    filter: brightness(1)
+                & > .lastread-title, .lastread-vol, .lastread-page
+                    visibility: hidden
 
-        .lastread-page
-            margin-left: 10px
-            +grid(1, 5)
+            .continue-reading-img
+                transition: 0.7s
+                width: 100%        
+                height: 450px
+                background-size: cover
+                background-position: center
+                position: absolute
+                z-index: -10
+                filter: brightness(0.6)
+            
+            .lastread-title
+                margin-top: 20px
+                text-align: center
+                justify-self: center
+            
+            .lastread-vol
+                margin-left: 10px
+                +grid(1, 4)
+
+            .lastread-page
+                margin-left: 10px
+                +grid(1, 5)
+
+        .sidebar-link-home
+            +sidebar-link($secondary-teal)
+            margin-top: 10px
+
+        .sidebar-link-home-active
+            +sidebar-link-active($secondary-teal)
+
+        .sidebar-link-syo
+            +sidebar-link($secondary-purple)
+
+        .sidebar-link-syo-active
+            +sidebar-link-active($secondary-purple)
+
+        .sidebar-link-settings
+            grid-row: 6
+            +sidebar-link($primary-orange)
+
+        .sidebar-link-settings-active
+            +sidebar-link-active($primary-orange)

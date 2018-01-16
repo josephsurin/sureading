@@ -6,3 +6,27 @@
 =grid($column, $row)
     grid-column: $column
     grid-row: $row
+
+=sidebar-link($colour)
+    background-color: transparent
+    width: 225px
+    justify-self: center
+    height: 50px
+    margin: 5px 0
+    text-align: center
+    line-height: 50px
+    color: $colour
+    font-family: 'Exo'
+    border-radius: 50px
+    user-select: none
+    border: 1px solid $colour
+    &:hover
+        cursor: pointer
+        background-color: $colour
+        color: white
+
+=sidebar-link-active($colour)
+    background-color: $colour
+    color: white
+    user-select: none
+    pointer-events: none
