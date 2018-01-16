@@ -27,8 +27,7 @@ export default class ContentPage extends Component {
         pagesNamesArray = readImgFiles(currDir);
         pageCount = pagesNamesArray.length-1;
         this.state = {
-            pageNumber: 1,
-            pageFilePath: path.join(currDir, pagesNamesArray[1]).replace(/\\/g, "/")
+            pageNumber: 1
         };
 
         $(window).keydown((e) => {
@@ -169,32 +168,41 @@ export default class ContentPage extends Component {
     }
 
     render() {
-        return (
-            <div className="page-container">
-                <div className="left-page-container">
-                    <Link to={`/card/${title}`} className="back-button no-select">{'<'}  Back</Link>
-                    <div className="page-title no-select">{title}</div>
-                    <div className="volume-title no-select">{volume}</div>
-                    <div className="page-counter no-select"><span contentEditable="true" className="page-counter-pagenum">{this.state.pageNumber}</span>/{pageCount}</div>
-                    <div className="progress-bar-container">
-                        <div className="progress-bar" style={{ width: `${100*this.state.pageNumber / pageCount}%`}}></div>
-                    </div>
-                    <div className="home-button-container">
-                        <Link to="/" className='home-button no-select'>Home</Link>
-                    </div>
-                </div>
-                <div className="page-image-container no-select">
-                    <img className="page-image" alt="error/unsupported file format" src={path.join(currDir, pagesNamesArray[this.state.pageNumber]).replace(/\\/g, "/")}/>
-                </div>
-                <div className="right-page-container">
-                
-                    <i className="fa fa-bookmark bookmark control-button" title="Bookmark this page!"></i>                
-                    <i className="fa fa-trash del-bookmark control-button" title="Remove Bookmark"></i>
-                    <i className="fa fa-arrow-left go-prev control-button"></i>
-                    <i className="fa fa-arrow-right go-next control-button"></i>   
-
-                </div>
+        if(pagesNamesArray.length == 1) {
+            return(
+            <div className="page-empty-container">
+                <div className="page-empty-text">There's nothing here!</div>
+                <Link to={`/card/${title}`} className="su-primary-button page-empty-back no-select">Back</Link>
             </div>
-        )
+            )
+        } else {
+        return (
+                <div className="page-container">
+                    <div className="left-page-container">
+                        <Link to={`/card/${title}`} className="back-button no-select">{'<'}  Back</Link>
+                        <div className="page-title no-select">{title}</div>
+                        <div className="volume-title no-select">{volume}</div>
+                        <div className="page-counter no-select"><span contentEditable="true" className="page-counter-pagenum">{this.state.pageNumber}</span>/{pageCount}</div>
+                        <div className="progress-bar-container">
+                            <div className="progress-bar" style={{ width: `${100*this.state.pageNumber / pageCount}%`}}></div>
+                        </div>
+                        <div className="home-button-container">
+                            <Link to="/" className='home-button no-select'>Home</Link>
+                        </div>
+                    </div>
+                    <div className="page-image-container no-select">
+                        <img className="page-image" alt="error/unsupported file format" src={path.join(currDir, pagesNamesArray[this.state.pageNumber]).replace(/\\/g, "/")}/>
+                    </div>
+                    <div className="right-page-container">
+                    
+                        <i className="fa fa-bookmark bookmark control-button" title="Bookmark this page!"></i>                
+                        <i className="fa fa-trash del-bookmark control-button" title="Remove Bookmark"></i>
+                        <i className="fa fa-arrow-left go-prev control-button"></i>
+                        <i className="fa fa-arrow-right go-next control-button"></i>   
+
+                    </div>
+                </div>
+            )
+        }
     }
 }

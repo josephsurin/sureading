@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 const fs = require('fs');
 const path = require('path');
+const naturalSort = require('javascript-natural-sort');
 window.$ = window.jQuery = require('jquery');
 
 const imgRegTest = /(\.jpg|\.png|\.jpeg|\.tiff|\.bmp|\.tif)/i;
@@ -25,7 +26,7 @@ export function createCardsFromDir(dirPath, type) {
 }
 
 export function readImgFiles(dirPath) {
-    return ['0', ...fs.readdirSync(dirPath).filter(file=>imgRegTest.test(file))];
+    return ['0', ...fs.readdirSync(dirPath).filter(file=>imgRegTest.test(file)).sort(naturalSort)];
 }
 
 export function getCoverImgPath(dir) {

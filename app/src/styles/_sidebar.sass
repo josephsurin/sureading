@@ -1,3 +1,7 @@
+.su-sidebar > *
+    transition: 0.4s
+    visibility: hidden
+
 .su-sidebar
     height: 100%
     width: 1px
@@ -10,3 +14,39 @@
     &:hover
         width: 280px
         visibility: visible
+        & > *
+            visibility: visible !important
+
+    .continue-reading
+        +grid-display(100%, 50px 240px auto 40px)
+        width: 280px
+        font-family: 'Exo'
+        font-size: 20px
+        color: white
+        &:hover
+            cursor: pointer
+            & > .continue-reading-img
+                filter: brightness(1)
+            & > .lastread-title, .lastread-vol, .lastread-page
+                visibility: hidden
+
+        .continue-reading-img
+            transition: 0.7s
+            width: 100%        
+            height: 450px
+            background-size: cover
+            position: absolute
+            z-index: -10
+            filter: brightness(0.6)
+        
+        .lastread-title
+            margin-top: 20px
+            justify-self: center
+        
+        .lastread-vol
+            margin-left: 10px
+            +grid(1, 4)
+
+        .lastread-page
+            margin-left: 10px
+            +grid(1, 5)
