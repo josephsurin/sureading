@@ -6,7 +6,7 @@ const Store = require('electron-store');
 const store = new Store();
 
 import { createCardsFromDir, addSpacerCards } from '../sutils.js';
-
+import SuSidebar from './Susidebar.jsx';
 
 export default class CardsIndex extends Component { 
     constructor(props) {
@@ -20,8 +20,11 @@ export default class CardsIndex extends Component {
 
     render() {
         return (
-            <div className="wrapper-cards">
-                {this.state.cardComponentsArray}
+            <div>
+                <SuSidebar/>
+                <div className="wrapper-cards">
+                    {this.state.cardComponentsArray}
+                </div>
             </div>
         );
     }

@@ -1,0 +1,12 @@
+.su-sidebar
+    height: 100%
+    width: 1px
+    position: fixed
+    z-index: 100
+    background-color: white
+    border-right: 5px solid $secondary-teal
+    transition: 0.4s
+    +grid-display(100%, 350px repeat(auto-fill, minmax(100px, auto)))
+    &:hover
+        width: 280px
+        visibility: visible

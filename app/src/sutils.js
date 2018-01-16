@@ -1,30 +1,19 @@
 import React, { Component } from 'react';
 const fs = require('fs');
 const path = require('path');
+window.$ = window.jQuery = require('jquery');
 
 const imgRegTest = /(\.jpg|\.png|\.jpeg|\.tiff|\.bmp|\.tif)/i;
+const COVER_SYNTAX = /cover/;
 
 import CardComponent from './components/CardComponent.jsx'
 
 export function createCardsFromDir(dirPath, type) {
-    const COVER_SYNTAX = /cover/;
     let cardsObject = {};
-
     var tempCardsArray = [];
-    let subdirs = fs.readdirSync(dirPath).filter((f)=>fs.statSync(path.join(dirPath, f)).isDirectory());
+    let subdirs = subDirs(dirPath)
     subdirs.forEach((el, i) => {
-        var cover = fs.readdirSync(path.join(dirPath,el)).find((f)=>COVER_SYNTAX.test(f));
-        let coverPath;
-        if(cover) {
-            coverPath = path.join(dirPath,el,cover);
-        } else {
-            var firstImage = fs.readdirSync(path.join(dirPath,el)).find(el1=>imgRegTest.test(path.extname(path.join(dirPath,el,el1))));
-            if(firstImage) {
-                coverPath = path.join(dirPath, el, firstImage);
-            } else {
-                coverPath = null;
-            }
-        }
+        var coverPath = getCoverImgPath(path.join(dirPath, el));
         cardsObject[el] = {
             "index": i,
             "coverPath": coverPath,
@@ -37,6 +26,24 @@ export function createCardsFromDir(dirPath, type) {
 
 export function readImgFiles(dirPath) {
     return ['0', ...fs.readdirSync(dirPath).filter(file=>imgRegTest.test(file))];
+}
+
+export function getCoverImgPath(dir) {
+    var cover = fs.readdirSync(dir).find((f) => COVER_SYNTAX.test(f)) || fs.readdirSync(dir).find((f) => imgRegTest.test(f));
+    if(cover) {
+        return path.join(dir, cover);
+    } else {
+        var coverNext;
+        subDirs(dir).some((el) => {
+            coverNext = getCoverImgPath(path.join(dir, el));
+            return coverNext;
+        });
+        return coverNext;
+    }
+}
+
+export function subDirs(dirPath) {
+    return fs.readdirSync(dirPath).filter((f)=>fs.statSync(path.join(dirPath, f)).isDirectory());
 }
 
 /* redundant

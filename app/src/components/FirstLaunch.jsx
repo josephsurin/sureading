@@ -7,7 +7,6 @@ const ipcRenderer = require('electron').ipcRenderer;
 
 window.$ = window.jQuery = require('jquery');
 
-
 export default class FirstLaunch extends Component { 
     constructor(props) {
         super(props);

@@ -111,6 +111,7 @@ export default class ContentPage extends Component {
 
         $(".bookmark").click(() => {
             store.set(bookmarkName, this.state.pageNumber);
+            store.set("globalLastRead", `${bookmarkName}/${this.state.pageNumber}`);
             $(".bookmark").addClass("su-disabled");
             setTimeout(()=>{$(".bookmark").removeClass("su-disabled")}, 1200);
             $(".bookmark").fadeOut(300, function() {
