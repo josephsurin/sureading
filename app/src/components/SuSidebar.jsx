@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Link, NavLink } from 'react-router-dom'
+const remote = require('electron').remote;
 const path = require('path')
 const Store = require('electron-store')
 const store = new Store()
-var drag = require('electron-drag');
+
 window.$ = window.jQuery = require('jquery')
 
 import { getCoverImgPath } from '../sutils.js'
@@ -35,15 +36,34 @@ export default class SuSidebar extends Component {
                 linkto: `/card/${globalLastRead.split('/')[1]}/vol/${globalLastRead.split('/')[2]}`
             });
         }
-        var clear = drag('#su-control');
-        
+        var win = remote.getCurrentWindow();
+        var isMaxed = win.isMaximized;
+        $(".su-control-close").click(() => {
+            win.close();
+        });
+        $(".su-control-max").click(() => {
+            if(isMaxed) {
+                win.unmaximize();
+            } else {
+                win.maximize();
+            }
+            isMaxed = !isMaxed;
+        });
+        $(".su-control-min").click(() => {
+            win.minimize();
+        });
     }
 
     render() {
         return (
             <div className="su-sidebar-wrapper">
                 <div className="su-sidebar">
-                <div className="su-control-buttons no-select" id="su-control">hey</div>
+                <div className="su-control-area no-select" id="su-control">
+                    <div className="su-control-close su-control-button"></div>
+                    <div className="su-control-max su-control-button"></div>
+                    <div className="su-control-min su-control-button"></div>
+                    <div className="su-title">sureading 3.0</div>
+                </div>
                     <Link to={this.state.linkto}>
                         <div className="continue-reading no-select">
                             <div className="continue-reading-img no-select" style={{

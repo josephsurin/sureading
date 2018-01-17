@@ -10,7 +10,7 @@ require('electron-reload')(__dirname);
 let mainWindow;
 
 app.on('ready', () => {
-    mainWindow = new BrowserWindow({frame: false, width: 800, height: 600 });
+    mainWindow = new BrowserWindow({ frame: false, width: 800, height: 600 });
     mainWindow.setMenu(null);
     mainWindow.loadURL('file://'+__dirname+'/app/index.html');
 });
