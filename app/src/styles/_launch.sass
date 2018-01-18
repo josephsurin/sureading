@@ -1,13 +1,20 @@
 .wrapper-launch
-    +grid-display(auto 300px auto, auto auto auto)
-    margin: 300px auto
-    height: 100%
+    position: absolute
+    left: 50%
+    top: 50%
+    transform: translate(-50%, -50%)
 
     .select-directory-button
-        +grid(2,2)
-        justify-self: start
+        margin: 50px
 
     .goto-cards
-        +grid(2,2)
-        justify-self: end
         margin-top: 10px
+
+    .btnpurple
+        background-color: $primary-purple
+
+    .purple
+        border-color: $primary-purple
+        color: $primary-purple
+        &:hover
+            background-color: $primary-purple

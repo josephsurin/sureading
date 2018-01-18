@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-const dialog = require('electron').remote.dialog;
+const remote = require('electron').remote;
+const dialog = remote.dialog;
 const Store = require('electron-store');
 const store = new Store();
 
 const ipcRenderer = require('electron').ipcRenderer;
+import SuSidebar from './Susidebar.jsx'
 
 window.$ = window.jQuery = require('jquery');
 
@@ -21,7 +23,7 @@ export default class FirstLaunch extends Component {
         }, (path) => {
             console.log(path);
             if(typeof path !== 'undefined') {
-                store.set('libraryPath', path[0]);
+                store.set(`${this.props.library}`, path[0]);
                 this.setState({
                     libraryPathSet: true
                 }, () => $(".goto-cards").removeClass("su-disabled"));
@@ -30,16 +32,19 @@ export default class FirstLaunch extends Component {
     }
 
     gotoCards() {
-        ipcRenderer.send('invokeRefresh');
+        console.log("Hey");
+        remote.getCurrentWindow().reload();
     }
 
     render() {
         return (
-            <div className="wrapper-launch">
-                <button className="select-directory-button su-primary-button" onClick={this.selectLibraryDirectoryDialog.bind(this)}>Select Library Folder</button>
-                <button className="goto-cards su-circle-button su-disabled"><i className="fa fa-arrow-right" onClick={this.gotoCards.bind(this)}></i></button>
+            <div>
+                <SuSidebar/>            
+                <div className="wrapper-launch">
+                    <button className={`select-directory-button su-primary-button ${this.props.colour}`} onClick={this.selectLibraryDirectoryDialog.bind(this)}>Select Library Folder</button>
+                    <button className={`goto-cards su-circle-button su-disabled btn${this.props.colour}`}><i className="fa fa-arrow-right" onClick={this.gotoCards.bind(this)}></i></button>
+                </div>
             </div>
-
         );
     }
 }

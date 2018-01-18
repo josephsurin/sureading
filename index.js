@@ -14,7 +14,3 @@ app.on('ready', () => {
     mainWindow.setMenu(null);
     mainWindow.loadURL('file://'+__dirname+'/app/index.html');
 });
-
-ipc.on('invokeRefresh', ()=> {
-    mainWindow.reload();
-});

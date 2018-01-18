@@ -16,7 +16,6 @@ window.$ = window.jQuery = require('jquery')
 require("./styles/main.sass")
 
 
-import FirstLaunch from './components/FirstLaunch.jsx'
 import CardsIndex from './components/CardsIndex.jsx'
 import VolsIndex from './components/VolsIndex.jsx'
 import ContentPage from './components/ContentPage.jsx'
@@ -25,9 +24,6 @@ import SettingsPage from './components/SettingsPage.jsx'
 
 let content;
 
-if(!store.get("libraryPath")) {
-    content = <FirstLaunch/>
-} else {
     content = (
         <HashRouter>
             <div className="router-div">
@@ -39,7 +35,6 @@ if(!store.get("libraryPath")) {
             </div>
         </HashRouter>
     );
-}
 
 export default class App extends Component {
     constructor() {
