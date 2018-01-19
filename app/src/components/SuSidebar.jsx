@@ -34,8 +34,6 @@ export default class SuSidebar extends Component {
     }
 
     componentDidMount() {
-        console.log("MOUNTED");
-        console.log(globalLastRead);
         if(globalLastRead!=store.get("globalLastRead") && store.get("globalLastRead")) {
             globalLastRead = store.get("globalLastRead");
             this.setState({
@@ -90,7 +88,7 @@ export default class SuSidebar extends Component {
                         </div>
                     </Link>
                     <NavLink exact to="/" className="sidebar-link-home no-select" activeClassName="sidebar-link-home-active">sureading</NavLink>
-                    <NavLink to="/syo" className="sidebar-link-syo no-select" activeClassName="sidebar-link-syo-active">syosetsu</NavLink>
+                    <NavLink to="/syo" className="sidebar-link-syo no-select" activeClassName="sidebar-link-syo-active">syosetu</NavLink>
                     <NavLink to="/settings" className="sidebar-link-settings no-select" activeClassName="sidebar-link-settings-active">settings</NavLink>
             </div>
         </div>

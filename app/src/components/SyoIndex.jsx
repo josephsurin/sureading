@@ -9,6 +9,11 @@ export default class SyoIndex extends Component {
   constructor() {
     super();
     var syolibraryPath = store.get("syolibraryPath");
+    if(syolibraryPath) {
+      this.state = {
+        cardComponentsArray: createCardsFromDir(syolibraryPath, "cardSyo")
+      }
+    }
   }
 
   render() {
@@ -18,7 +23,9 @@ export default class SyoIndex extends Component {
       return (
         <div>
           <SuSidebar/>
-          heyyy
+          <div className="wrapper-cards">
+            {this.state.cardComponentsArray}
+          </div>
         </div>
       )
     }

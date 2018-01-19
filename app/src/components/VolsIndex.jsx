@@ -5,7 +5,7 @@ window.$ = window.jQuery = require('jquery');
 const Store = require('electron-store');
 const store = new Store();
 
-import { createCardsFromDir, addSpacerCards } from '../sutils.js';
+import { createCardsFromDir } from '../sutils.js';
 
 export default class VolsIndex extends Component {
     constructor(props) {

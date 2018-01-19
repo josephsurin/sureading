@@ -29,6 +29,10 @@ export function readImgFiles(dirPath) {
     return ['0', ...fs.readdirSync(dirPath).filter(file=>imgRegTest.test(file)).sort(naturalSort)];
 }
 
+export function readHTMLFiles(dirPath) {
+    return fs.readdirSync(dirPath).filter(file=>/.html$/.test(file)).sort(naturalSort);
+}
+
 export function getCoverImgPath(dir) {
     var cover = fs.readdirSync(dir).find((f) => COVER_SYNTAX.test(f)) || fs.readdirSync(dir).find((f) => imgRegTest.test(f));
     if(cover) {

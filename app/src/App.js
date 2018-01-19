@@ -20,6 +20,7 @@ import CardsIndex from './components/CardsIndex.jsx'
 import VolsIndex from './components/VolsIndex.jsx'
 import ContentPage from './components/ContentPage.jsx'
 import SyoIndex from './components/SyoIndex.jsx'
+import ChIndex from './components/ChIndex.jsx'
 import SettingsPage from './components/SettingsPage.jsx'
 
 let content;
@@ -31,6 +32,7 @@ let content;
                 <Route exact path="/card/:title" component={VolsIndex}/>
                 <Route exact path="/card/:title/vol/:volume" component={ContentPage}/>
                 <Route exact path="/syo" component={SyoIndex}/>
+                <Route exact path="/syo/:id" component={ChIndex}/>
                 <Route exact path="/settings" component={SettingsPage}/>
             </div>
         </HashRouter>
