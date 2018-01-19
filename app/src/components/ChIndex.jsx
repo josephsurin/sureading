@@ -19,10 +19,16 @@ export default class ChIndex extends Component {
         currDirSyo = path.join(store.get("syolibraryPath"), id);
         chaptersArray = readHTMLFiles(currDirSyo);
         mainFile = path.join(currDirSyo , `${id}.html`);
+
+    }
+
+    componentWillMount() {
         $.get(mainFile, (results) => {
             var parser = new DOMParser();
             var doc = parser.parseFromString(results, "text/html");
-            console.log(doc.getElementsByClassName("novel_title"));
+            title = doc.getElementsByClassName("novel_title")[0].innerText;
+        }).then(() => {
+            this.forceUpdate();
         })
     }
 
@@ -39,7 +45,7 @@ export default class ChIndex extends Component {
             <div className="page-container">
             <div className="left-page-container">
                 <Link to={`/syo`} className="back-button no-select">{'<'}  Back</Link>
-                <div className="page-title no-select">hhh</div>
+                <div className="page-title no-select">{title}</div>
                 <div className="volume-title no-select">hey</div>
                 <div className="page-counter no-select"><span contentEditable="true" className="page-counter-pagenum">44</span>%</div>
                 <div className="progress-bar-container">
