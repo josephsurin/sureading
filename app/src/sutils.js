@@ -20,9 +20,25 @@ export function createCardsFromDir(dirPath, type) {
             "coverPath": coverPath,
             "type": type
         }
+        if(type=="cardSyo") {
+            var syotitle;
+            var syoInfoFile = path.join(dirPath, el, `${el}.html`);
+            $.get({
+                url: syoInfoFile,
+                success: gotTitles,
+                async: false
+            });
+            function gotTitles(data) {
+                var parser = new DOMParser();
+                var doc = parser.parseFromString(data, 'text/html');
+                syotitle = doc.getElementsByClassName('novel_title')[0].innerText;
+                tempCardsArray.push(<CardComponent title={syotitle} cover={coverPath} key={i} type={type}/>);   
+            }
+        } else {
         tempCardsArray.push(<CardComponent title={el} cover={coverPath} key={i} type={type}/>);
+        }
     });
-    return tempCardsArray;
+        return tempCardsArray;
 }
 
 export function readImgFiles(dirPath) {
