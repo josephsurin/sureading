@@ -22,7 +22,7 @@ export default class CardComponent extends Component {
         } else if(this.props.type=="vol") {
             linkto=`${location.hash.substring(1)}/vol/${this.props.title}`;
         } else if(this.props.type=="cardSyo") {
-            linkto=`/syo/${this.props.title}`;
+            linkto=`/syo/${this.props.id}`;
         }
     }
 

@@ -32,7 +32,7 @@ export function createCardsFromDir(dirPath, type) {
                 var parser = new DOMParser();
                 var doc = parser.parseFromString(data, 'text/html');
                 syotitle = doc.getElementsByClassName('novel_title')[0].innerText;
-                tempCardsArray.push(<CardComponent title={syotitle} cover={coverPath} key={i} type={type}/>);   
+                tempCardsArray.push(<CardComponent title={syotitle} cover={coverPath} key={i} type={type} id={el}/>);   
             }
         } else {
         tempCardsArray.push(<CardComponent title={el} cover={coverPath} key={i} type={type}/>);

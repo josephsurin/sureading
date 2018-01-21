@@ -42,5 +42,10 @@
     "react-router-dom": "^4.2.2",
     "react-window-titlebar": "^1.0.3",
     "remote": "^0.2.6"
-  }
+  },
+  "file": [
+    "*.js",
+    "build",
+    "node_modules"
+  ]
 }

@@ -36,7 +36,12 @@ export default class ChIndex extends Component {
         var syoframe = document.getElementById("syo-frame");
         $(syoframe).on('load', function() {
             var syodoc = syoframe.contentDocument;
-            syodoc.getElementsByClassName("novel_title")[0].innerText = " ohhhh"
+            var chapterLinks = $(syodoc).find(".subtitle > a");
+            for(var i = 0; i < chapterLinks.length; i++) {
+                var newHref = './'+chapterLinks[i].getAttribute("href").split('/')[1]+chapterLinks[i].getAttribute("href").split('/')[2]+'.html'
+                chapterLinks[i].setAttribute("href", newHref)
+                console.log(chapterLinks[i])
+            }
         })
     }
 
